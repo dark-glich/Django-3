@@ -1,0 +1,262 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&family=Patrick+Hand&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+  <style>
+      body {
+        margin: 0;
+        min-width: 250px;
+        font-family: 'Open Sans Condensed', sans-serif;
+        
+      }
+      .main{
+        display: grid;
+        height:500px;
+        grid-template-columns: 46% 54%;
+        font-family: 'Open Sans Condensed', sans-serif;
+      }
+      
+      /* Include the padding and border in an element's total width and height */
+      * {
+        box-sizing: border-box;
+      }
+      
+      /* Remove margins and padding from the list */
+      ul {
+        margin: 0;
+        padding: 0;
+      }
+      
+      /* Style the list items */
+      ul li {
+        margin-top: 5px;
+        border-radius: 10px;
+        cursor: pointer;
+        position: relative;
+        padding: 12px 8px 12px 40px;
+        list-style-type: none;
+        background-color:rgb(241, 245, 250);
+        font-size: 14px;
+        transition: 0.2s;
+        color:rgb(8, 3, 53);
+
+        
+        /* make the list items unselectable */
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+      
+      /* Set all odd list items to a different color (zebra-stripes) */
+      ul li:nth-child(odd) {
+        background-color:#e6eefd;
+      }
+      
+      /* Darker background-color on hover */
+      ul li:hover {
+        background-color:rgb(185, 214, 247);
+      }
+      
+      /* When clicked on, add a background color and strike out text */
+      ul li.checked {
+        background: rgb(23, 14, 98);
+        color: #fff;
+        text-decoration: line-through;
+      }
+      
+      /* Add a "checked" mark when clicked on */
+      ul li.checked::before {
+        content: '';
+        position: absolute;
+        border-color: #fff;
+        border-style: solid;
+        border-width: 0 2px 2px 0;
+        top: 10px;
+        left: 16px;
+        transform: rotate(45deg);
+        height: 15px;
+        width: 7px;
+      }
+      
+      /* Style the close button */
+      .close {
+        position: absolute;
+        right: 0;
+        top: 0;
+        padding: 12px 20px 12px 20px;
+        width: 3rem;
+      }
+      
+      .close:hover {
+        background-color: tomato;
+        color: white;
+        border-radius: 10px;
+      }
+      
+      /* Style the header */
+      .header {
+        background-color: #00B0FF;
+        padding: 1rem 20px;
+        height: 140px;
+        color: white;
+        font-family: 'Raleway', sans-serif;
+        text-align: center;
+        border-bottom-right-radius: 10px;
+        border-bottom-left-radius: 10px;
+      }
+      
+      .header:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+      
+      /* Style the input */
+      input {
+        margin: 0;
+        border:0px solid white;
+        border-radius: 8px;
+        margin-right: 5px;
+        margin-top: 10px;
+        transition: all 0.2s ease;
+        width: 70%;
+        font-family: 'Open Sans Condensed', sans-serif;
+        padding: 10px;
+        float: left;
+        font-size: 16px;
+      }
+      input:focus{
+        outline:none;
+      }
+      
+      /* Style the "Add" button */
+      .addBtn {
+        padding: 10px;
+        width: 25%;
+        background-color:rgb(23, 14, 98);
+        color: white;
+        float: left;
+        text-align: center;
+        font-family: 'Patrick Hand', cursive;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+        border-radius: 8px;
+      }
+      
+      .addBtn:hover {
+        background-color: rgb(27, 93, 199);
+      }
+      .homebutton{
+        position: fixed;
+        top: 0;
+        margin-left:45%;
+        color:#F2F2F2;
+        background-color:#00B0FF;
+        border: 0px solid white;
+        text-align: center;
+        height: 2.1rem;
+        width: 90px;
+        border-radius: 5px;
+        font-family: 'Patrick Hand', cursive;
+        text-decoration: none;
+      }
+      </style>
+      </head>
+      <body>
+      {% if error == None%}
+      <div class='main'>
+        <div style="margin-left: 10px;">
+          <div id="myDIV" class="header">
+            <h2 style="margin:5px">To Do List</h2>
+            <input type="text" id="myInput" placeholder="Type your task">
+            <input type="submit" onclick="newElement()" class="addBtn" value='Add'></input>
+          </div> 
+          
+          <ul id="myUL">
+
+          </ul>
+        </div>
+        <div>
+          <form method="POST">{%csrf_token%}
+          <input type="submit"class="homebutton" name="home" value='Home'></input>
+          </form>
+          <img src="{%static 'undraw_task_list_6x9d.svg'%}" width="500px" style="margin-top: 8rem; margin-left: 4rem;">
+        </div>
+      </div>
+      {%else%}
+      <div style="font-family:'Open Sans Condensed', sans-serif;">
+        <h1 style="text-align: center; color:#00B0FF;">
+          <span style="font-size: 3rem;">Sorry,</span>
+          {{error}} with email : 
+          <small>{{email}}</small>
+        </h1>
+        <div style="text-align: center; "><a class="login" href="{% url 'signup' %}" style="font-size: 2rem;"> Create a new account. </a></div>
+        <img src="{%static 'undraw_dreamer_gxxi.svg' %}" height="320px" style="margin-left: 17rem; margin-top: 3rem;">
+      </div>
+      {%endif%}
+      
+      
+      <script>
+      // Create a "close" button and append it to each list item
+      var myNodelist = document.getElementsByTagName("LI");
+      var i;
+      for (i = 0; i < myNodelist.length; i++) {
+        var span = document.createElement("SPAN");
+        var txt = document.createTextNode("\u00D7");
+        span.className = "close";
+        span.appendChild(txt);
+        myNodelist[i].appendChild(span);
+      }
+      
+      // Click on a close button to hide the current list item
+      var close = document.getElementsByClassName("close");
+      var i;
+      for (i = 0; i < close.length; i++) {
+        close[i].onclick = function() {
+          var div = this.parentElement;
+          div.style.display = "none";
+        }
+      }
+      
+      // Add a "checked" symbol when clicking on a list item
+      var list = document.querySelector('ul');
+      list.addEventListener('click', function(ev) {
+        if (ev.target.tagName === 'LI') {
+          ev.target.classList.toggle('checked');
+        }
+      }, false);
+      
+      // Create a new list item when clicking on the "Add" button
+      function newElement() {
+        var li = document.createElement("li");
+        var inputValue = document.getElementById("myInput").value;
+        var t = document.createTextNode(inputValue);
+        li.appendChild(t);
+        if (inputValue === '') {
+          alert("You cannot leave a task empty");
+        } else {
+          document.getElementById("myUL").appendChild(li);
+        }
+        document.getElementById("myInput").value = "";
+      
+        var span = document.createElement("SPAN");
+        var txt = document.createTextNode("\u00D7");
+        span.className = "close";
+        span.appendChild(txt);
+        li.appendChild(span);
+      
+        for (i = 0; i < close.length; i++) {
+          close[i].onclick = function() {
+            var div = this.parentElement;
+            div.style.display = "none";
+          }
+        }
+      }
+      </script>

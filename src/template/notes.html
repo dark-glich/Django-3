@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <meta charset="utf-8">
+        <title>Blog-Post</title>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&family=Patrick+Hand&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'style2.css' %}">
+        <!--<link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.png'%}" />-->
+    </head>
+    <body>
+        {% if error == None%}
+        <div class='main'>
+            <div>
+                <div class="header"><h1 style="margin:1.8rem;">Notes</h1></div>
+                <div style = 'margin-top: 110px;'>
+                    {% for note in notes %}
+                    <a href="{{note.id}}" style="text-decoration: none; color: rgb(37, 36, 36);"><p class='note'> {{note}}</p></a>
+                    {%endfor%}
+                </div>
+            </div>
+            <div>
+                <img src="{% static 'undraw_Add_notes_re_ln36.svg' %}" height="500px" style="margin-left: 5rem; position: fixed; top: 6px;" >
+                <form method="POST">{%csrf_token%}
+                    <input type="submit"class="homebutton" name="home" value='Home'></input>
+                </form>
+            </div>
+        </div>
+        <form method="POST"> {%csrf_token%}
+            <span>{{form.task_text}}</span>
+            <input type='submit' value='Add' class="button" />
+        </form>
+        {%else%}
+        <div style="font-family:'Open Sans Condensed', sans-serif;">
+            <h1 style="text-align: center; color:#00B0FF;">
+            <span style="font-size: 3rem;">Sorry,</span>
+            {{error}} with email : 
+            <small>{{email}}</small>
+            </h1>
+            <div style="text-align: center; "><a class="login" href="{% url 'signup' %}" style="font-size: 2rem;"> Create a new account. </a></div>
+            <img src="{%static 'undraw_dreamer_gxxi.svg' %}" height="320px" style="margin-left: 17rem; margin-top: 3rem;">
+        </div>
+      {%endif%}
+    </body>
+<!--
+
+-->

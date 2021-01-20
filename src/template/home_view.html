@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <meta charset="utf-8">
+        <title>Blog-Post</title>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&family=Patrick+Hand&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'style4.css' %}">
+        <!--<link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.png'%}" />-->
+        <style>
+            body{
+                background-image: url( "{% static 'undraw_void_3ggu.svg' %}" );
+                background-size:80%;
+                background-repeat: no-repeat;
+            }
+            .button1{
+                position: fixed;
+                margin-left: 38%;
+                top: 55%;
+                color:#F2F2F2;
+                background-color:#00B0FF;
+                border: 0px solid white;
+                text-align: center;
+                height: 5.1rem;
+                transition: all 0.5s ease;
+                width: 5.1rem;
+                border-radius: 50px;
+                font-family: 'Patrick Hand', cursive;
+                font-size: x-large;
+            }
+            .button1:hover{
+                margin-left: 36%;
+                border-radius: 80px;
+                height: 8.1rem;
+                width: 8.1rem;;
+                border: 20px solid #98deff;
+                top: 50%;
+            }
+            .button1:focus{
+                outline:none;
+            }
+            .button2{
+                position: fixed;
+                margin-left:52%;
+                top: 55%;
+                color:#F2F2F2;
+                background-color:#00B0FF;
+                border: 0px solid white;
+                text-align: center;
+                height: 5.1rem;
+                transition: all 0.5s ease;
+                width: 5.1rem;
+                border-radius: 50px;
+                font-size: x-large;
+                font-family: 'Patrick Hand', cursive;
+            }
+            .button2:hover{
+                margin-left: 50%;
+                border-radius: 80px;
+                height: 8.1rem;
+                width: 8.1rem;;
+                border: 20px solid #98deff;
+                top: 50%;
+            }
+            .button2:focus{
+                outline:none;
+            }
+            .footer {
+                position: fixed;
+                bottom: 0;
+                width: 30%;
+                height: 30px;
+                margin: 0px 23rem;
+                background-color: rgba(57, 55, 78, 0);
+                padding-top: 3px;
+                color: white;
+                text-align: center;
+                font-family: 'Patrick Hand', cursive;
+            }
+        </style>
+    </head>
+    <body>
+        {%if error == None%}
+        <form method="POST">{%csrf_token%}
+        <input type="submit"class="button1" name="notes" value='Notes'></input>
+        <input type="submit"class="button2" name="todo" value='Todo'></input>
+        <div class="footer">Welcome, {{username}}</div>
+        </form>
+        {%else%}
+        <div style="font-family:'Open Sans Condensed', sans-serif;">
+          <h1 style="text-align: center; color:#00B0FF;">
+            <span style="font-size: 3rem;">Sorry,</span>
+            {{error}} with email : 
+            <small>{{email}}</small>
+          </h1>
+          <div style="text-align: center; "><a class="login" href="{% url 'signup' %}" style="font-size: 2rem;"> Create a new account. </a></div>
+          
+        </div>
+        {%endif%}
+    </body>
+</html>

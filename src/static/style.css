@@ -1,0 +1,62 @@
+body{
+    background-color: rgb(249, 250, 252);
+    font-family: 'Open Sans Condensed', sans-serif;
+}
+.main{
+    display: grid;
+    height:500px;
+    grid-template-columns: 55% 1% 44%;
+    font-family: 'Open Sans Condensed', sans-serif;
+}
+.form{
+    font-family: 'Open Sans Condensed', sans-serif;
+    margin: 20% 5%;
+}
+.form-data{
+    height: 2rem;
+    margin:5px 10%;
+    border:0px solid black;
+    border-radius: 3px;
+    background-color:#e6eefd;
+    font-family: 'Open Sans Condensed', sans-serif;
+    margin-top: 5px;
+    width:20rem;
+    margin-top: 0.1rem;
+    transition: all 0.2s ease;
+}
+.form-data:focus{
+    border: 2px solid rgb(8, 3, 53);
+    width:22rem;
+    margin:5px 6%;
+}
+.check{
+    margin-left:10%;
+    margin-top: 20px;
+}
+.button{
+    margin:10px, 0px;
+    color:#F2F2F2;
+    background-color: #00B0FF;
+    border: 0px solid white;
+    height: 30px;
+    width: 80px;
+    border-radius: 3px;
+    margin: 1.5rem 40%;
+    font-family: 'Patrick Hand', cursive;
+}
+.button:hover{
+    background-color: rgb(23, 14, 98);
+}
+.error{
+    font-size: x-small;
+    margin-left:10%;
+    color:rgb(27, 93, 199);
+}
+.login{
+    color:rgb(23, 14, 98);
+    font-size: 0.8rem;
+    text-decoration: none;
+}
+.login:hover{
+    text-decoration: underline;
+}
